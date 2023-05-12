@@ -1,6 +1,6 @@
 FROM debian:buster
 
-MAINTAINER starnode, <contact@starnode.pw>
+MAINTAINER jirayu, <contact@jirayu.pw>
 
 RUN apt update \
     && apt upgrade -y \
@@ -108,6 +108,7 @@ RUN apt-get install -y \
 
 # Installing NodeJS dependencies for AIO.
 RUN npm i -g yarn pm2 
+
 
 USER container
 ENV  USER container
