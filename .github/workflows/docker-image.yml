@@ -2,9 +2,9 @@ name: AIO egg
 
 on:
   push:
-   branches: [ main ]
+   branches: [ aio ]
   pull_request:
-    branches: [ main ]
+    branches: [ aio ]
       
 jobs:
   build:
