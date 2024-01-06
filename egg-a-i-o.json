@@ -7,10 +7,10 @@
     "exported_at": "2023-05-13T19:26:36+07:00",
     "name": "AIO",
     "author": "contact@jirayu.pw",
-    "description": "Made with \u2665\ufe0f by StarNode",
+    "description": "Made with \u2665\ufe0f by Oxygen Project",
     "features": null,
     "docker_images": {
-        "starnode\/aio": "starnode\/aio"
+        "oxygenproj\/aio": "oxygenproj\/aio"
     },
     "file_denylist": [],
     "startup": "${STARTUP_CMD}",
