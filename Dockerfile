@@ -1,6 +1,6 @@
 FROM debian:buster
 
-MAINTAINER jirayu, <contact@jirayu.pw>
+LABEL author="JIRAYU"
 
 RUN apt update \
     && apt upgrade -y \
@@ -21,13 +21,12 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-
-# OpenJDK 17 LTS
+# OpenJDK 21
 RUN apt update \
    && apt install -y libc6-i386 libc6-x32 \
-   && wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb -O jdk-17_linux-x64_bin.deb \
-   && apt install -y ./jdk-17_linux-x64_bin.deb \
-   && rm jdk-17_linux-x64_bin.deb
+   && wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk-21_linux-x64_bin.deb \
+   && apt install -y ./jdk-21_linux-x64_bin.deb \
+   && rm jdk-21_linux-x64_bin.deb
    
 ENV JAVA_HOME=/usr/lib/jvm/jdk-17/
 ENV PATH=$PATH:$JAVA_HOME/bin
@@ -109,8 +108,8 @@ RUN apt-get install -y \
 # Installing NodeJS dependencies for AIO.
 RUN npm i -g yarn pm2 
 
-
 USER container
+RUN echo "SAKURA" > /etc/hostname
 ENV  USER container
 ENV  HOME /home/container
 
