@@ -109,7 +109,6 @@ RUN apt-get install -y \
 RUN npm i -g yarn pm2 
 
 USER container
-RUN echo "SAKURA" > /etc/hostname
 ENV  USER container
 ENV  HOME /home/container
 
