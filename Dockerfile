@@ -62,12 +62,16 @@ RUN apt -y install python python-pip python3-pip \
    && pip3 install --upgrade pip
 
 # BUN
-RUN curl --fail --location --progress-bar --output "bun.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip" || { echo "Failed to download Bun: $?" ; exit 1; }
+RUN curl --fail --location --progress-bar --output "bun.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip" \
+  || { echo "Failed to download Bun: $?" ; exit 1; }
+
 RUN mkdir -p "/usr/local/bun" \
-   && unzip -oqd "/usr/local/bun" "bun.zip" \
-   && mv "/usr/local/bun/bun-linux-x64/bun" "/usr/local/bun/bun" \
-   && rm -rf "/usr/local/bun/bun-linux-x64" "bun.zip" \
-   && chmod +x "/usr/local/bun/bun"
+  && unzip -oqd "/usr/local/bun" "bun.zip" \
+  && mv "/usr/local/bun/bun-linux-x64/bun" "/usr/local/bun/bun" \
+  && rm -rf "/usr/local/bun/bun-linux-x64" "bun.zip" \
+  && chmod +x "/usr/local/bun/bun"
+
+ENV PATH="$PATH:/usr/local/bun/bin"
 
 # Golang
 RUN curl -OL https://golang.org/dl/go1.19.5.linux-amd64.tar.gz \
