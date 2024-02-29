@@ -42,7 +42,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install ffmpeg \
     && apt -y install make \
     && apt -y install build-essential 
-    
+
 # Python 2 & 3
 RUN apt update \
    && apt -y install zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
@@ -59,6 +59,9 @@ RUN apt update \
 # Upgrade Pip
 RUN apt -y install python python-pip python3-pip \
    && pip3 install --upgrade pip
+
+# BUN
+RUN curl -fsSL https://bun.sh/install | bash
 
 # Golang
 RUN curl -OL https://golang.org/dl/go1.19.5.linux-amd64.tar.gz \
