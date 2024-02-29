@@ -3,20 +3,20 @@ FROM debian:buster
 LABEL author="JIRAYU"
 
 RUN apt update \
-    && apt upgrade -y \
-    && apt -y install curl software-properties-common locales git \
-    && apt-get -y install liblzma-dev \
-    && apt-get -y install lzma \
-    && adduser container \
-    && apt-get update \ 
-    && apt -y install cmake \
-    && apt -y install wget \
-    && apt -y install unzip
+   && apt upgrade -y \
+   && apt -y install curl software-properties-common locales git \
+   && apt-get -y install liblzma-dev \
+   && apt-get -y install lzma \
+   && adduser container \
+   && apt-get update \ 
+   && apt -y install cmake \
+   && apt -y install wget \
+   && apt -y install unzip
 
 # Grant sudo permissions to container user for commands
 RUN apt-get update && \
-    apt-get -y install sudo
-    
+   apt-get -y install sudo
+
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -28,7 +28,7 @@ RUN apt update \
    && wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk-21_linux-x64_bin.deb \
    && apt install -y ./jdk-21_linux-x64_bin.deb \
    && rm jdk-21_linux-x64_bin.deb
-   
+
 ENV JAVA_HOME=/usr/lib/jvm/jdk-17/
 ENV PATH=$PATH:$JAVA_HOME/bin
 
@@ -39,10 +39,10 @@ RUN jenv init -
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt -y install nodejs \
-    && apt -y install ffmpeg \
-    && apt -y install make \
-    && apt -y install build-essential 
+   && apt -y install nodejs \
+   && apt -y install ffmpeg \
+   && apt -y install make \
+   && apt -y install build-essential 
 
 # Python 2 & 3
 RUN apt update \
@@ -56,13 +56,18 @@ RUN apt update \
    && cd .. \
    && rm -rf Python-3.11.1 \
    && rm Python-3.11.*.tgz 
-   
+
 # Upgrade Pip
 RUN apt -y install python python-pip python3-pip \
    && pip3 install --upgrade pip
 
 # BUN
-RUN curl -fsSL https://bun.sh/install | bash
+RUN curl --fail --location --progress-bar --output "bun.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip" || { echo "Failed to download Bun: $?" ; exit 1; }
+RUN mkdir -p "/usr/local/bun" \
+   && unzip -oqd "/usr/local/bun" "bun.zip" \
+   && mv "/usr/local/bun/bun-linux-x64/bun" "/usr/local/bun/bun" \
+   && rm -rf "/usr/local/bun/bun-linux-x64" "bun.zip" \
+   && chmod +x "/usr/local/bun/bun"
 
 # Golang
 RUN curl -OL https://golang.org/dl/go1.19.5.linux-amd64.tar.gz \
@@ -81,38 +86,38 @@ RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod
 
 # Install the system dependencies required for puppeteer support
 RUN apt-get install -y \
-    fonts-liberation \
-    gconf-service \
-    libappindicator1 \
-    libasound2 \
-    libatk1.0-0 \
-    libcairo2 \
-    libcups2 \
-    libfontconfig1 \
-    libgbm-dev \
-    libgdk-pixbuf2.0-0 \
-    libgtk-3-0 \
-    libicu-dev \
-    libjpeg-dev \
-    libnspr4 \
-    libnss3 \
-    libpango-1.0-0 \
-    libpangocairo-1.0-0 \
-    libpng-dev \
-    libx11-6 \
-    libx11-xcb1 \
-    libxcb1 \
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxi6 \
-    libxrandr2 \
-    libxrender1 \
-    libxss1 \
-    libxtst6 \
-    xdg-utils
+   fonts-liberation \
+   gconf-service \
+   libappindicator1 \
+   libasound2 \
+   libatk1.0-0 \
+   libcairo2 \
+   libcups2 \
+   libfontconfig1 \
+   libgbm-dev \
+   libgdk-pixbuf2.0-0 \
+   libgtk-3-0 \
+   libicu-dev \
+   libjpeg-dev \
+   libnspr4 \
+   libnss3 \
+   libpango-1.0-0 \
+   libpangocairo-1.0-0 \
+   libpng-dev \
+   libx11-6 \
+   libx11-xcb1 \
+   libxcb1 \
+   libxcomposite1 \
+   libxcursor1 \
+   libxdamage1 \
+   libxext6 \
+   libxfixes3 \
+   libxi6 \
+   libxrandr2 \
+   libxrender1 \
+   libxss1 \
+   libxtst6 \
+   xdg-utils
 
 # Installing NodeJS dependencies for AIO.
 RUN npm i -g yarn pm2 
