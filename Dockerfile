@@ -31,6 +31,11 @@ RUN apt update \
 ENV JAVA_HOME=/usr/lib/jvm/jdk-17/
 ENV PATH=$PATH:$JAVA_HOME/bin
 
+# jENV
+RUN git clone https://github.com/jenv/jenv.git /usr/local/.jenv
+ENV PATH="/usr/local/.jenv/bin:$PATH"
+RUN jenv init -
+
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs \
