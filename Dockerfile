@@ -71,7 +71,7 @@ RUN mkdir -p "/usr/local/bun" \
   && rm -rf "/usr/local/bun/bun-linux-x64" "bun.zip" \
   && chmod +x "/usr/local/bun/bun"
 
-ENV PATH="$PATH:/usr/local/bun/bin"
+ENV PATH="$PATH:/usr/local/bun"
 
 # Golang
 RUN curl -OL https://golang.org/dl/go1.19.5.linux-amd64.tar.gz \
